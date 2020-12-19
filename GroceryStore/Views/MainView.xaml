@@ -3,15 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GroceryStore.Views"
+             xmlns:local="clr-namespace:GroceryStore.Views" xmlns:viewmodels="clr-namespace:GroceryStore.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="SlateGray">
         <TextBlock Text="Grocery Store" FontSize="50" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Admin" FontSize="30" FontWeight="DemiBold" Height="50" Width="200" Margin="0,0,0,20"></Button>
-            <Button Content="Customer" FontSize="30" FontWeight="DemiBold" Height="50" Width="200" Margin="0,0,0,20"></Button>
-            <Button Content="Exit" FontSize="30" FontWeight="DemiBold" Height="50" Width="200"></Button>
+            <Button Content="Admin" Command="{Binding UpdateViewCommand}" CommandParameter="Admin" FontSize="30" FontWeight="DemiBold" Height="50" Width="200" Margin="0,0,0,20"></Button>
+            <Button Content="Customer" Command="{Binding UpdateViewCommand}" CommandParameter="Customer" FontSize="30" FontWeight="DemiBold" Height="50" Width="200" Margin="0,0,0,20"></Button>
+            <Button Content="Exit" Command="{Binding UpdateViewCommand}" CommandParameter="Exit" FontSize="30" FontWeight="DemiBold" Height="50" Width="200"></Button>
         </StackPanel>
+        <ContentControl Content="{Binding SelectedViewModel}"></ContentControl>
     </Grid>
 </UserControl>
