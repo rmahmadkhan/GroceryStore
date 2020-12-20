@@ -8,9 +8,10 @@ namespace GroceryStore.Models
 {
     class ProductService
     {
-        public bool addProd(Product p)
+        // Addd a product to the database
+        public bool addProduct(Product p)
         {
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ProjectDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GroceryStoreDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection connection = new SqlConnection(connString);
             connection.Open(); 
             string query = $"insert into Products(ID, Name, Price, Quantity) values('{p.Id}','{p.Name}','{p.Price}','{p.Quantity}')";
@@ -25,13 +26,16 @@ namespace GroceryStore.Models
                 return false;
             }
         }
-        public bool deleteProd(int ID)
+
+        // Delete a product of a certain ID
+        // Used in AdminView
+        public bool deleteProduct(int ID)
         {
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ProjectDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            SqlConnection con = new SqlConnection(connString);
-            con.Open();
-            string query = $"delete from Products where ID = '{ID}'";
-            SqlCommand cmd = new SqlCommand(query, con);
+            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GroceryStoreDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            SqlConnection connection = new SqlConnection(connString);
+            connection.Open();
+            string query = $"delete from Products where Id = '{ID}'";
+            SqlCommand cmd = new SqlCommand(query, connection);
             int rows = cmd.ExecuteNonQuery();
             if (rows >= 1)
             {
@@ -43,10 +47,11 @@ namespace GroceryStore.Models
             }
         }
 
-        public ObservableCollection<Product> showProd()
+        // Returns the data from database in a list
+        public ObservableCollection<Product> getProducts()
         {
-            ObservableCollection<Product> prodList = new ObservableCollection<Product>();
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ProjectDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            ObservableCollection<Product> products = new ObservableCollection<Product>();
+            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GroceryStoreDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(connString);
             con.Open();
             string query = "Select * from Products";
@@ -59,40 +64,21 @@ namespace GroceryStore.Models
                 p.Name = System.Convert.ToString(dr[1]);
                 p.Price = System.Convert.ToDecimal(dr[2]);
                 p.Quantity = System.Convert.ToInt32(dr[3]);
-                prodList.Add(p);
+                products.Add(p);
             }
             con.Close();
-            return prodList;
+            return products;
         }
-        public bool isItemExist(int pID)
+
+        // Checks if Product is available in database
+        public bool isProductAvailable(Product p)
         {
             bool check = false;
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ProjectDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            SqlConnection con = new SqlConnection(connString);
-            con.Open();
+            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GroceryStoreDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            SqlConnection connection = new SqlConnection(connString);
+            connection.Open();
             string query = "Select * from Products";
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                if (pID == System.Convert.ToInt32(dr[0]))
-                {
-                    check = true;
-                    break;
-                }
-            }
-            con.Close();
-            if (check) { return true; }
-            else { return false; }
-        }
-        public bool isQuantityExist(Product p)
-        {
-            bool check = false;
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ProjectDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            SqlConnection con = new SqlConnection(connString);
-            con.Open();
-            string query = "Select * from Products";
-            SqlCommand cmd = new SqlCommand(query, con);
+            SqlCommand cmd = new SqlCommand(query, connection);
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -102,21 +88,35 @@ namespace GroceryStore.Models
                     break;
                 }
             }
-            con.Close();
+            connection.Close();
             if (check) { return true; }
             else { return false; }
         }
-        public void updateData(ObservableCollection<Product> prodList)
+
+        // Takes a list and update the database
+        public void updateDatabase(ObservableCollection<Product> products)
         {
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MyDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GroceryStoreDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection connection = new SqlConnection(connString);
-            foreach (Product p in prodList)
+            connection.Open();
+            foreach (Product p in products)
             {
-                string query = $"Update Products set Quantity ='{p.Quantity}' where ID = '{p.Id}'";
-                SqlCommand cmd = new SqlCommand(query, connection);
-                connection.Open();
-                int insertedRows = cmd.ExecuteNonQuery();
+                // If quantity of a product is zero, it deletes it from the database
+                if(p.Quantity == 0)
+                {
+                    string query = $"delete from Products where Id = '{p.Id}'";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.ExecuteNonQuery();
+                }
+                // else it updates the quantity
+                else
+                {
+                    string query = $"Update Products set Quantity ='{p.Quantity}' where Id = '{p.Id}'";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.ExecuteNonQuery();
+                }
             }
+            connection.Close();
         }
     }
 }

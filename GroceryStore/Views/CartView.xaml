@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="GroceryStore.Views.CartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GroceryStore.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="SlateGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="54*"></RowDefinition>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="281*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Shop" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="30" FontWeight="DemiBold" VerticalAlignment="Center"/>
+        <Button Command="{Binding UpdateViewCommand}" CommandParameter="Logout" Content="Logout" FontSize="16" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Width="100" Margin="0,0,30,0"/>
+        <Button Command="{Binding Checkout}" Content="Checkout" FontSize="16" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Width="100" Margin="0,0,30,0"/>
+        <Label Content="ID:" FontSize="16" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBox Text="{Binding ID, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" TextWrapping="Wrap" Width="70" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Label Content="Quantity:" FontSize="16" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="130,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="210,0,0,0" TextWrapping="Wrap" Width="70" Height="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Button Command="{Binding AddCommand}" Content="Add to Cart" FontSize="16" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Width="100"/>
+        <TextBlock Text="Available Products" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold" Grid.Row="2"></TextBlock>
+        <TextBlock Text="Your Cart" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" FontWeight="DemiBold"></TextBlock>
+        <DataGrid ItemsSource="{Binding products}" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="97" HeadersVisibility="Column"  Grid.Row="3"/>
+        <DataGrid ItemsSource="{Binding cartProducts, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="97" HeadersVisibility="Column"   Grid.Column="1" Grid.Row="3"/>
+        <ContentControl Grid.RowSpan="4" Grid.ColumnSpan="2" Content="{Binding SelectedViewModel}"></ContentControl>
+    </Grid>
+</UserControl>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GroceryStore" 
         xmlns:Views="clr-namespace:GroceryStore.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Grocery Store" Height="450" Width="800">
     <Grid>
         <Views:MainView></Views:MainView>
     </Grid>

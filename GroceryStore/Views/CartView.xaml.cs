@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace GroceryStore.Views
 {
     /// <summary>
-    /// Interaction logic for CustomerView.xaml
+    /// Interaction logic for CartView.xaml
     /// </summary>
-    public partial class CustomerView : UserControl
+    public partial class CartView : UserControl
     {
-        public CustomerView()
+        public CartView()
         {
             InitializeComponent();
         }

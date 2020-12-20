@@ -23,27 +23,27 @@ namespace GroceryStore.Models
         public int Id
         {
             get { return id; }
-            set { id = value; OnPropertyChanged("ProductID"); }
+            set { id = value; OnPropertyChanged("Id"); }
         }
         private string name;
 
         public string Name
         {
             get { return name; }
-            set { name = value; OnPropertyChanged("ProductName"); }
+            set { name = value; OnPropertyChanged("Name"); }
         }
         private decimal price;
 
         public decimal Price
         {
             get { return price; }
-            set { price = value; OnPropertyChanged("ProductPrice"); }
+            set { price = value; OnPropertyChanged("Price"); }
         }
         private int quantity;
         public int Quantity
         {
             get { return quantity; }
-            set { quantity = value; OnPropertyChanged("ProductQuantity"); }
+            set { quantity = value; OnPropertyChanged("Quantity"); }
         }
     }
 }

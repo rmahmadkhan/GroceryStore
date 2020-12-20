@@ -9,41 +9,25 @@
     <Grid Background="SlateGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*"></ColumnDefinition>
-            <ColumnDefinition Width="200*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock FontSize="40" Text="Customer Dashboard" HorizontalAlignment="Center" FontWeight="DemiBold" Grid.ColumnSpan="2"/>
-        <TextBlock Text="Login" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold" TextWrapping="Wrap"/>
-        <TextBlock Text="Signup" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold" TextWrapping="Wrap"/>
+        <Button Content="Back" Command="{Binding UpdateViewCommand}" CommandParameter="Back" Grid.Row="0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="10,10,0,0"/>
+        <WrapPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Username:" FontSize="16" FontWeight="Bold" Margin="0,0,20,0"/>
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Width="160" VerticalContentAlignment="Center"/>
+        </WrapPanel>
         <WrapPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="Username:" FontSize="16" FontWeight="Bold" Margin="0,0,20,0"/>
-            <TextBox Text="{Binding LoginUName, UpdateSourceTrigger=PropertyChanged}" Width="160" VerticalContentAlignment="Center"/>
-        </WrapPanel>
-        <WrapPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="Password:" FontSize="16" FontWeight="Bold" Margin="0,0,20,0"/>
-            <PasswordBox  Name="LoginPasswd" Width="160" VerticalContentAlignment="Center"></PasswordBox>
+            <PasswordBox  Name="Password" Width="160" VerticalContentAlignment="Center"></PasswordBox>
         </WrapPanel>
-        <WrapPanel Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="Username:" FontSize="16" FontWeight="Bold" Margin="0,0,20,0"/>
-            <TextBox Text="{Binding RegUName, UpdateSourceTrigger=PropertyChanged}" Width="160" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
-        </WrapPanel>
-        <WrapPanel Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="Password:" FontSize="16" FontWeight="Bold" Margin="0,0,20,0"/>
-            <PasswordBox Name="RegPasswd" Width="160" VerticalContentAlignment="Center"></PasswordBox>
-        </WrapPanel>
-        <WrapPanel Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="Phone No:" FontSize="16" FontWeight="Bold" Margin="0,0,20,0"/>
-            <TextBox Text="{Binding RegContact, UpdateSourceTrigger=PropertyChanged}" Width="160" VerticalContentAlignment="Center"/>
-        </WrapPanel>
-        <Button Content="Login" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=LoginPasswd}" Grid.Row="4" Grid.Column="0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="30"/>
-        <Button Content="Signup" Command="{Binding SignupCommand}" CommandParameter="{Binding ElementName=SignupPasswd}" Grid.Row="5" Grid.Column="1" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="30"/>
+        <Button Content="Login" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=Password}" Grid.Row="4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40" Margin="0,0,200,0"/>
+        <Button Content="Signup" Command="{Binding SignupCommand}" CommandParameter="{Binding ElementName=Password}" Grid.Row="4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40" Margin="200,0,0,0"/>
         <ContentControl Content="{Binding SelectedViewModel}" Grid.RowSpan="6" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

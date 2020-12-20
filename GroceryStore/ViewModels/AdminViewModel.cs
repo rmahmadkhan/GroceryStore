@@ -31,6 +31,8 @@ namespace GroceryStore.ViewModels
         {
             return true;
         }
+
+        // Selects the specified view
         void ViewSelector(object obj)
         {
             if ((obj as string).Equals("Products"))
@@ -42,6 +44,8 @@ namespace GroceryStore.ViewModels
                 SelectedViewModel = new MainViewModel();
             }
         }
+
+        // Constructor
         public AdminViewModel()
         {
             productService = new ProductService();
@@ -60,6 +64,8 @@ namespace GroceryStore.ViewModels
                 return true;
             }
         }
+
+        // Adds product to database
         public void addProduct(object obj)
         {
             try
@@ -69,7 +75,7 @@ namespace GroceryStore.ViewModels
                 p.Name = this.Name;
                 p.Price = System.Convert.ToDecimal(this.Price);
                 p.Quantity = System.Convert.ToInt32(this.Quantity);
-                if (productService.addProd(p))
+                if (productService.addProduct(p))
                 {
                     MessageBox.Show("Product added successfully.");
                 }
@@ -78,8 +84,14 @@ namespace GroceryStore.ViewModels
                     MessageBox.Show("Product could not be added.");
                 }
             }
-            catch (FormatException e) { MessageBox.Show("Enter Input in correct format"); }
-            catch { MessageBox.Show("Product already exists."); }
+            catch (FormatException e) 
+            {
+                MessageBox.Show("Enter Input in correct format"); 
+            }
+            catch 
+            { 
+                MessageBox.Show("Product already exists."); 
+            }
         }
         public bool canDelete(object obj)
         {
@@ -92,11 +104,13 @@ namespace GroceryStore.ViewModels
                 return true;
             }
         }
+
+        // Deletes product from the database
         public void deleteProduct(object obj)
         {
             try
             {
-                if (productService.deleteProd(System.Convert.ToInt32(this.delID)))
+                if (productService.deleteProduct(System.Convert.ToInt32(this.delID)))
                 {
                     MessageBox.Show("Product deleted successfully!");
                 }
@@ -105,7 +119,10 @@ namespace GroceryStore.ViewModels
                     MessageBox.Show("Specified product does not exist!");
                 }
             }
-            catch { MessageBox.Show("Error!\nEnter input in correct number"); }
+            catch 
+            { 
+                MessageBox.Show("Enter input in number!"); 
+            }
         }
 
     }

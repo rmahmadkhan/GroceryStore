@@ -12,8 +12,8 @@
         <DataTemplate DataType="{x:Type vm:AdminViewModel}">
             <v:AdminView></v:AdminView>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:CustomerViewModel}">
-            <v:CustomerView></v:CustomerView>
+        <DataTemplate DataType="{x:Type vm:CartViewModel}">
+            <v:CartView></v:CartView>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:CustomerLoginViewModel}">
             <v:CustomerLoginView></v:CustomerLoginView>

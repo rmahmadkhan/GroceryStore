@@ -6,7 +6,20 @@
              xmlns:local="clr-namespace:GroceryStore.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="SlateGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding receiptProducts}" CanUserAddRows="False" CanUserDeleteRows="False" MinColumnWidth="160" ColumnWidth="SizeToHeader" HeadersVisibility="Column"   ></DataGrid>
+        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1">
+            <Label Content="Total Amount: " FontSize="20" FontWeight="DemiBold" Margin="20,0,0,0"/>
+            <TextBlock Text="{Binding totalAmount}" Margin="20,0,0,0" FontSize="20" VerticalAlignment="Center" TextAlignment="Right"/>
+        </WrapPanel>
+        <Button Command="{Binding UpdateViewCommand}" Content="Logout" FontSize="16" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontWeight="DemiBold" Height="30" Width="100" Margin="0,0,30,0" />
+        <ContentControl Content="{Binding SelectedViewModel}" Grid.RowSpan="3"></ContentControl>
     </Grid>
 </UserControl>

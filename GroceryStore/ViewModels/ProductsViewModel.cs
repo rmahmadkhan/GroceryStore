@@ -38,7 +38,7 @@ namespace GroceryStore.ViewModels
         ObservableCollection<Product> ShowProd()
         {
             ProductService p = new ProductService();
-            Products = p.showProd();
+            Products = p.getProducts();
             if (Products.Count == 0)
             {
                 MessageBox.Show("No products exists.");
